@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <h1>test-scroll</h1>
+  <p>Reduced motion? <b id="reduced-motion">unknown</b></p>
+  <test-component>
+    <!-- this is a slotted node -->
+    <!-- another comment -->
+    <!-- yet another one -->
+    <!-- never gonna give you up -->
+    <!-- never gonna let you down -->
+    <!-- never gonna run around -->
+    <!-- and desert you -->
+    <div slot="slot1" id="el1">slot1-1</div>
+  </test-component>
+
+  <script>
+    'use strict';
+    customElements.define('test-component', class extends HTMLElement {
+      constructor() {
+        super();
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = '<slot name="slot1"></slot>';
+      }
+    });
+
+    document.querySelector("#reduced-motion").innerHTML =
+	window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "Yes" : "No";
+  </script>
+
+</body>
+</html>
